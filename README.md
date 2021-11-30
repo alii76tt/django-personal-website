@@ -10,6 +10,26 @@ A simple personal website written in Python Django. If you want to use the theme
 ![1](/images/image1.png)
 ![2](/images/image2.png)
 
+## Settings
+Social media names should be added like this:
+<br/>
+* linkedin 
+* github
+* twitter
+* facebook
+* hackerrank
+
+Skills names should be added like this:
+<br/>
+* html5 
+* css3
+* python
+* php
+* java
+* javascript
+* node
+* wordpress
+
 # Requirements
 This App Uses asgiref==3.4.1
 Django==3.2.9
