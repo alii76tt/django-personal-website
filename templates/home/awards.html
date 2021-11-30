@@ -1,0 +1,17 @@
+<hr class="m-0" />
+            <!-- Awards-->
+            <section class="resume-section p-3 p-lg-5 d-flex d-column" id="awards">
+                <div class="resume-section-content">
+                    <h2 class="mb-5">Awards & Certifications</h2>
+                    {% if content %}
+                    {% for award in awards %}
+                    <ul class="fa-ul mb-0">
+                        <li>
+                            <span class="fa-li"><i class="fas fa-trophy text-warning"></i></span>
+                            {{award.title}}
+                        </li>
+                    </ul>
+                    {% endfor %}
+                    {% endif %}
+                </div>
+            </section>

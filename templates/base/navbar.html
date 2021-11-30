@@ -1,0 +1,32 @@
+{% load static %}
+<!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="sideNav">
+            <a class="navbar-brand js-scroll-trigger" href="{% url 'home:index' %}#page-top">
+                {% if content %}
+                {% for item in content %}
+                    <span class="d-block d-lg-none">{{item.name.upper}} {{item.surName.upper}}</span>
+                    {% if item.image %}
+                        <span class="d-none d-lg-block"><img class="img-fluid img-profile rounded-circle mx-auto mb-2" src="{{item.image.url}}" alt="..." /></span>
+                    {% else %}
+                    <span class="d-none d-lg-block"><img class="img-fluid img-profile rounded-circle mx-auto mb-2" src="{% static 'assets/img/profile.png' %}" alt="..." /></span>
+                    {% endif %}
+                {% endfor %}
+                {% else %}
+                    <span class="d-block d-lg-none">My Site</span>
+                    <span class="d-none d-lg-block"><img class="img-fluid img-profile rounded-circle mx-auto mb-2" src="{% static 'assets/img/profile.png' %}" alt="..." /></span>
+                {% endif %}
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{% url 'home:index' %}#about">About</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{% url 'home:index' %}#experience">Experience</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{% url 'home:index' %}#education">Education</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{% url 'home:index' %}#skills">Skills</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{% url 'home:index' %}#interests">Interests</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{% url 'home:index' %}#awards">Awards</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{% url 'post:index' %}">Blog</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{% url 'home:contact' %}">Contact</a></li>
+                </ul>
+            </div>
+        </nav>

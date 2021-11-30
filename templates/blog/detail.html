@@ -1,0 +1,89 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block content %}
+{% include "base/navbar.html" %}
+<div id="main-content" class="blog-page">
+        <div class="container">
+            <div class="row clearfix">
+                <div class="col-lg-8 col-md-12 left-box">
+                    <div class="card single_post">
+                        <div class="body">
+                        {% if request.user.is_authenticated %}
+                            <a href="{{post.get_update_url}}" role="buton" class="btn btn-block btn-info mb-3">Update</a>
+                            <a href="{{post.get_delete_url}}" role="buton" class="btn btn-block btn-danger mb-3">Delete</a>
+                            <a href="{% url 'post:create' %}" role="buton" class="btn btn-block btn-warning mb-3">Create</a>
+                        {% endif %}
+                        {% include 'base/message.html' %}
+                        {% if post.image %}
+                            <div class="img-post">
+                                <img class="d-block img-fluid" src="{{post.image.url}}" alt="First slide">
+                            </div>
+                        {% else %}
+                            <div class="img-post">
+                                <img class="d-block img-fluid" src="{% static 'assets/img/default-image.jpg' %}" alt="First slide">
+                            </div>
+                        {% endif %}
+                            <h1 class="text-primary">{{post.title}}</h1>
+                            <p>{{post.content|safe}}</p>
+                            <h6 class="text-secondary mt-3">Category: {{post.category.name}}</h6>
+                        </div>                        
+                    </div>
+                    <div class="card">
+                            <div class="header">
+                                <h2>Comments {{post.comments.count}}</h2>
+                            </div>
+                            <div class="body">
+                                <ul class="comment-reply list-unstyled">
+                                {% if not post.comments.all %}
+                                    <small>Comment Not Yet...</small>
+                                {% else %}
+                                {% for comment in  post.comments.all %}
+                                    <li class="row clearfix">
+                                        <div class="icon-box col-md-2 col-4"><img class="img-fluid img-thumbnail" src="https://extensions.gnome.org/extension-data/icons/icon_1015.png" alt="Awesome Image"></div>
+                                        <div class="text-box col-md-10 col-8 p-l-0 p-r0">
+                                            <h5 class="m-b-0">{{comment.name}}</h5>
+                                            <p>{{comment.body}}</p>
+                                            <ul class="list-inline">
+                                                <li><a>{{comment.date_added}}</a></li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                {% endfor %}
+                                {% endif %}
+                                </ul>                                        
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="header">
+                                <h3>Leave a reply <small>Your email address will not be published. Required fields are marked*</small></h3>
+                            </div>
+                            <div class="body">
+                                <div class="comment-form">
+                                    <form class="row clearfix" method="POST">
+                                    {% csrf_token %}
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                               {{form.name}}
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                {{form.email}}
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12 mt-3">
+                                            <div class="form-group">
+                                                {{form.body}}
+                                            </div>
+                                            <button type="submit" class="btn btn-block btn-primary mt-3">SUBMIT</button>
+                                        </div>                                
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+                {% include 'blog/right-box.html' %}
+            </div>
+        </div>
+    </div>
+    {% endblock content %}

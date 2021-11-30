@@ -1,0 +1,38 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block content %}
+{% include "base/navbar.html" %}
+<hr class="m-0" />
+            <!-- Tag-->
+            <section class="resume-section">
+                <div class="resume-section-content">
+                {% if request.user.is_authenticated %}
+                    <a href="{% url 'post:create' %}" role="buton" class="btn btn-block btn-warning mt-3">Create</a>
+                {% endif %}
+                    <h2 class="mb-5">Tag: {{tag.name}}</h2>
+                    {% if posts %}
+                    {% for post in posts %}
+                    <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
+                        <div class="flex-grow-1">
+                            <a href="{{ post.get_absoulte_url }}"><h3 class="mb-0 text-primary">{{post.title}}</h3></a>
+                            {% if request.user.is_authenticated %}
+                                <a href="{{post.get_update_url}}" role="buton" class="btn btn-block btn-info mt-3">Update</a>
+                                <a href="{{post.get_delete_url}}" role="buton" class="btn btn-block btn-danger mt-3">Delete</a>
+                            {% endif %}
+                            <div class="subheading mb-3">{{post.user.get_full_name|upper}}</div>
+                            <p>{{post.content|safe|linebreaks|truncatechars:300}}</p>
+                        </div>
+                        <div class="flex-shrink-0"><span class="text-primary">{{post.publishing_date|time}} ago</span></div>
+                    </div>
+                    {% endfor %}
+                    {% else %}
+                    <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
+                       <h1 class="mb-0">
+                       Blogs Not
+                            <span class="text-primary">Found</span>
+                        </h1>
+                    </div>
+                    {% endif %}
+                </div>
+            </section>
+{% endblock content %}

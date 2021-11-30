@@ -1,0 +1,53 @@
+{% load static %}
+<div class="col-lg-4 col-md-12 right-box">
+                    <div class="card">
+                        <div class="header">
+                            <a href="{% url 'post:category_list' %}"><h2>Categories</h2></a>
+                        </div>
+                        <div class="box categories">
+                            <ul class="list-unstyled">
+                            {% for category in categories %}
+                                <li><a href="{{ category.get_absoulte_url }}">{{category.name}}</a></li>
+                            {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="header">
+                            <a href="{% url 'post:tag_list' %}"><h2>Tags</h2></a>
+                        </div>
+                        <div class="body widget">
+                            <ul class="list-unstyled categories-clouds m-b-0">
+                            {% for tag in tags %}
+                                <li><a href="{{ tag.get_absoulte_url }}">{{tag.name}}</a></li>
+                            {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="header">
+                            <h2>Last Posts</h2>                        
+                        </div>
+                        <div class="body widget popular-post">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                {% for p in last_posts %}
+                                    <div class="single_post">
+                                        <a href="{{ p.get_absoulte_url }}"><h3 class="mb-0 text-primary">{{p.title}}</h3></a>
+                                        {% if p.image %}
+                                        <div class="img-post p-3">
+                                            <img href="{{ p.get_absoulte_url }}" src="{{p.image.url}}" alt="Awesome Image">                                        
+                                        </div>          
+                                        {% else %}
+                                        <div class="img-post p-3">
+                                            <img href="{% static 'assets/img/default-image.jpg' %}" alt="Awesome Image">                                        
+                                        </div> 
+                                        {% endif %}                                  
+                                    </div>
+                                    <hr>
+                                {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>

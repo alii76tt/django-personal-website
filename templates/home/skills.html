@@ -1,0 +1,40 @@
+<hr class="m-0" />
+<!-- Skills-->
+            <section class="resume-section p-3 p-lg-5 d-flex d-column" id="skills">
+                <div class="resume-section-content">
+                    <h2 class="mb-5">Skills</h2>
+                    <div class="subheading mb-3">Programming Languages & Tools</div>
+                    {% if content %}
+                    <ul class="list-inline dev-icons">
+                    {% for skill in skills %}
+                        {% if skill.title == 'html5' %}
+                            <li class="list-inline-item text-primary"><i class="fab fa-html5"></i></li>
+                        {% elif skill.title == 'css3' %}
+                            <li class="list-inline-item text-primary"><i class="fab fa-css3-alt"></i></li>
+                        {% elif skill.title == 'python' %}
+                            <li class="list-inline-item text-primary"><i class="fab fa-python"></i></li>
+                        {% elif skill.title == 'php' %}
+                            <li class="list-inline-item text-primary"><i class="fab fa-php"></i></li>
+                        {% elif skill.title == 'java' %}
+                            <li class="list-inline-item text-primary"><i class="fab fa-java"></i></li>
+                        {% elif skill.title == 'javascript' %}
+                            <li class="list-inline-item text-primary"><i class="fab fa-js-square"></i></li>
+                        {% elif skill.title == 'node' %}
+                            <li class="list-inline-item text-primary"><i class="fab fa-node-js"></i></li>
+                        {% elif skill.title == 'wordpress' %}
+                            <li class="list-inline-item text-primary"><i class="fab fa-wordpress"></i></li>
+                        {% endif %}
+                    {% endfor %}
+                    </ul>
+                    <div class="subheading mb-3">Workflow</div>
+                    {% for skill in skills %}
+                    <ul class="fa-ul mb-0">
+                        <li>
+                            <span class="fa-li"><i class="fas fa-check text-primary"></i></span>
+                            {{skill.workflow}}
+                        </li>
+                    </ul>
+                    {% endfor %}
+                    {% endif %}
+                </div>
+            </section>

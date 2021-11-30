@@ -1,0 +1,74 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block content %}
+{% include 'base/navbar.html' %}
+<hr class="m-0" />
+<div class="card">
+            <!-- Blog Detail-->
+            <section class="resume-section" id="blog">
+                <div class="resume-section-content">
+                {% if request.user.is_authenticated %}
+                    <a href="{% url 'post:create' %}" role="buton" class="btn btn-block btn-warning">Create Post</a>
+                    <a href="{% url 'post:add_category' %}" role="buton" class="btn btn-block btn-primary">Create Category</a>
+                    <a href="{% url 'post:add_tag' %}" role="buton" class="btn btn-block btn-info">Create Tag</a>
+                {% endif %}
+                {% include 'base/message.html' %}
+                    <h2 class="mb-3">Blogs</h2>
+                    <h5><a href="{% url 'post:category_list' %}">Categories</a></h5>
+                    <h5><a href="{% url 'post:tag_list' %}">Tags</a></h5>
+                    <h5>Total Blog: {{post_list.count}}</h5>
+                    <div class="card">
+                        <div class="body search">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text text-primary"><i class="fa fa-search" style="font-size:20px"></i></span>
+                                </div>
+                            <form class="form-horizontal ng-pristine ng-valid" role="search" method="GET">
+                                <input type="text" name="q" value="{{request.GET.q}}" class="form-control" style="margin-left:10px" placeholder="Search...">                                    
+                            </form>
+                            </div>
+                        </div>
+                        {% if request.GET.q %}
+                            <span class="text-primary">Query: {{request.GET.q}}</span>
+                        {% endif %}
+                    </div>
+                    {% if posts %}
+                    {% for post in posts %}
+                    <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
+                        <div class="flex-grow-1">
+                            <a href="{{ post.get_absoulte_url }}"><h3 class="mb-0 text-primary">{{post.title}}</h3></a>
+                           <h5>Category:  <a href="{{post.category.get_absoulte_url}}">{{post.category.name}}</a></h5>
+                            {% if request.user.is_authenticated %}
+                                <a href="{{post.get_update_url}}" role="buton" class="btn btn-block btn-info mt-3">Update</a>
+                                <a href="{{post.get_delete_url}}" role="buton" class="btn btn-block btn-danger mt-3">Delete</a>
+                            {% endif %}
+                            <div class="subheading mb-3">{{post.user.get_full_name|upper}}</div>
+                            <p>{{post.content|safe|linebreaks|truncatechars:300}}</p>
+                        </div>
+                        <div class="flex-shrink-0"><span class="text-primary">{{post.publishing_date|timesince}} ago</span></div>
+                    </div>
+                    {% endfor %}
+                    <div class="pagination">
+                        <span class="step-links">
+                            {% if posts.has_previous %}
+                                <a href="?page={{ posts.previous_page_number }}{% if request.GET.q %}&q={{request.GET.q}}{% endif %}">previous</a>
+                            {% endif %}
+                            <span class="current">
+                                Page {{ posts.number }} of {{ posts.paginator.num_pages }}.
+                            </span>
+                            {% if posts.has_next %}
+                                <a href="?page={{ posts.next_page_number }}{% if request.GET.q %}&q={{request.GET.q}}{% endif %}">next</a>
+                            {% endif %}
+                        </span>
+                    </div>
+                    {% else %}
+                    <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
+                       <h1 class="mb-0">
+                       Blogs Not
+                            <span class="text-primary">Found</span>
+                        </h1>
+                    </div>
+                    {% endif %}
+                </div>
+            </section>
+{% endblock content %}

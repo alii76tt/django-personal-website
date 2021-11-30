@@ -1,0 +1,12 @@
+<hr class="m-0" />
+            <!-- Interests-->
+            <section class="resume-section p-3 p-lg-5 d-flex d-column" id="interests">
+                <div class="resume-section-content">
+                    <h2 class="mb-5">Interests</h2>
+                    {% if content %}
+                    {% for interest in interests %}
+                    <p>{{interest.content}}</p>
+                    {% endfor %}
+                    {% endif %}
+                </div>
+            </section>
